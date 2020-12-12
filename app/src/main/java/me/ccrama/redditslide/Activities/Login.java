@@ -43,6 +43,7 @@ import me.ccrama.redditslide.UserSubscriptions;
 import me.ccrama.redditslide.Visuals.GetClosestColor;
 import me.ccrama.redditslide.Visuals.Palette;
 import me.ccrama.redditslide.util.LogUtil;
+import me.ccrama.redditslide.util.RandomName;
 
 
 /**
@@ -242,8 +243,10 @@ public class Login extends BaseActivityAnim {
                     Set<String> accounts = Authentication.authentication.getStringSet("accounts",
                             new HashSet<String>());
                     LoggedInAccount me = Authentication.reddit.me();
-                    accounts.add(me.getFullName() + ":" + refreshToken);
-                    Authentication.name = me.getFullName();
+
+                    Authentication.name = RandomName.generateRandomName();
+                    accounts.add(Authentication.name + ":" + refreshToken);
+                    Authentication.realName = me.getFullName();
                     editor.putStringSet("accounts", accounts);
                     Set<String> tokens = Authentication.authentication.getStringSet("tokens",
                             new HashSet<String>());
